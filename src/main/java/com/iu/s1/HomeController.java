@@ -36,4 +36,15 @@ public class HomeController {
 		return "home";
 	}
 	
+	//HomeCon..이 Home 이니까 s1이 root임.
+	@RequestMapping(value = "/test/test.do")
+	public void test () {
+		System.out.println("/test/test.do test -----");
+	}
+	
+	@RequestMapping(value = "/test/sub.do")
+	public void test2 () {
+		System.out.println("/test/sub.do test2 -----" );
+	}
+	
 }
