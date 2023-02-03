@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -59,9 +60,16 @@ public class ProductController {
 		return "product/productDetail";	//web에 리턴하는 jsp 경로
 	}
 	
-	@RequestMapping (value = "productAdd") //url경로와 jsp 경로가 일치할 시 void로 해도 댐.
+	@RequestMapping (value = "productAdd", method = RequestMethod.GET) //url경로와 jsp 경로가 일치할 시 void로 해도 댐.
 	public void productAdd (  ) {
 		
+	}
+	
+	@RequestMapping (value = "productAdd", method = RequestMethod.POST)
+	public String productAdd(ProductDTO dto) throws Exception {
+		int result = productService.setAddProduct(dto, null);
+		System.out.println(result==1);
+		return "redirect:./list";
 	}
 	
 	@RequestMapping (value = "update")

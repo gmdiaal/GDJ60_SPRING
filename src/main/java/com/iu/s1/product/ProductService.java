@@ -23,10 +23,12 @@ public class ProductService {
 		productDTO.setProduct_num(productNum); //외부의 DTO(번호 외 다른 정보 max) 받아와서 DTO에 숫자 담음
 		int result = productDAO.setProduct(productDTO); //DTO 받아서 DATABASE에 보냄
 		
+		if(ar != null) {
 		
-		for (ProductOptionDTO productOptionDTO: ar) {	//옵션dto집합(번호 외 다른 정보 max) 불러옴
-			productOptionDTO.setProduct_num(productNum); //상품번호를 옵션에 대입
-			productDAO.setProductOption(productOptionDTO); //database에 보냄.
+			for (ProductOptionDTO productOptionDTO: ar) {	//옵션dto집합(번호 외 다른 정보 max) 불러옴
+				productOptionDTO.setProduct_num(productNum); //상품번호를 옵션에 대입
+				productDAO.setProductOption(productOptionDTO); //database에 보냄.
+			}
 		}
 		
 		return result;	

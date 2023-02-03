@@ -49,7 +49,7 @@ public class ProductDAO {
 //			dto = productDTO;
 //		}else {dto = null;}
 
-		if(rs.next()) { //객체 생성 해야하나? 할필요없다.
+		if(rs.next()) { //객체 생성 해야하나? 
 			dto.setProduct_num(rs.getLong("PRODUCT_NUM"));
 			dto.setProduct_name(rs.getString("PRODUCT_NAME"));
 			dto.setProduct_detail(rs.getString("PRODUCT_DETAIL"));
@@ -118,13 +118,13 @@ public class ProductDAO {
 	}
 	
 
-	public int setProduct (ProductDTO dto) throws Exception {
+	public int setProduct (ProductDTO dto) throws Exception { //다른데서 seq만들어서 넣어줌 PUBLIC_SEQ.NEXTVAL 하지마
 		Connection connection = DBConnection.getConnection();
-		String sql = "INSERT INTO PRODUCT VALUES (PUBLIC_SEQ.NEXTVAL, ?, ?, 0.0)";
+		String sql = "INSERT INTO PRODUCT VALUES (?, ?, ?, 0.0)";
 		PreparedStatement ps = connection.prepareStatement(sql);
-		//ps.setLong(1, dto.getProduct_num());
-		ps.setString(1, dto.getProduct_name());
-		ps.setString(2, dto.getProduct_detail());
+		ps.setLong(1, dto.getProduct_num());
+		ps.setString(2, dto.getProduct_name());
+		ps.setString(3, dto.getProduct_detail());
 		//ps.setDouble(3, dto.getProduct_score());
 		
 		int result = ps.executeUpdate();
@@ -134,40 +134,40 @@ public class ProductDAO {
 		return result;
 	}
 	
-	public static void main(String[] args) {
-		
-		ProductDTO productDTO = new ProductDTO();
-		ProductDAO productDAO = new ProductDAO();
-		
-
-		try {
-			
-			
-
-			
-//조회					
-//			List<ProductDTO> ar = productDAO.getProductList();
-//			System.out.println(ar.size() != 0);
-//			productDTO = ar.get(0);
-//			System.out.println(productDTO.getProduct_name());
-//조회
-
-//set 상품
-			//productDTO.setProduct_num((long) 2);
-//			productDTO.setProduct_name("test1");
-//			productDTO.setProduct_detail("test1");
-//			productDTO.setProduct_score( (double) 1 );
+//	public static void main(String[] args) {
+//		
+//		ProductDTO productDTO = new ProductDTO();
+//		ProductDAO productDAO = new ProductDAO();
+//		
+//
+//		try {
 //			
-//			int result = productDAO.setProduct(productDTO);
-//			System.out.println(result !=0);
-//set 상품			
-			
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//			
+//
+//			
+////조회					
+////			List<ProductDTO> ar = productDAO.getProductList();
+////			System.out.println(ar.size() != 0);
+////			productDTO = ar.get(0);
+////			System.out.println(productDTO.getProduct_name());
+////조회
+//
+////set 상품
+//			//productDTO.setProduct_num((long) 2);
+////			productDTO.setProduct_name("test1");
+////			productDTO.setProduct_detail("test1");
+////			productDTO.setProduct_score( (double) 1 );
+////			
+////			int result = productDAO.setProduct(productDTO);
+////			System.out.println(result !=0);
+////set 상품			
+//			
+//			
+//			
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 }
