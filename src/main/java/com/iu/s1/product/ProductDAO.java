@@ -39,17 +39,28 @@ public class ProductDAO {
 		PreparedStatement st = connection.prepareStatement(sql);
 		st.setLong(1, dto.getProduct_num());
 		ResultSet rs = st.executeQuery();
+		
+//		if(rs.next()) {
+//			ProductDTO productDTO = new ProductDTO();
+//			productDTO.setProduct_num(rs.getLong("PRODUCT_NUM"));
+//			productDTO.setProduct_name(rs.getString("PRODUCT_NAME"));
+//			productDTO.setProduct_detail(rs.getString("PRODUCT_DETAIL"));
+//			productDTO.setProduct_score(rs.getDouble("PRODUCT_SCORE"));
+//			dto = productDTO;
+//		}else {dto = null;}
 
-		if(rs.next()) {
-			ProductDTO productDTO = new ProductDTO();
-			productDTO.setProduct_num(rs.getLong("PRODUCT_NUM"));
-			productDTO.setProduct_name(rs.getString("PRODUCT_NAME"));
-			productDTO.setProduct_detail(rs.getString("PRODUCT_DETAIL"));
-			productDTO.setProduct_score(rs.getDouble("PRODUCT_SCORE"));
-			dto = productDTO;
-		}
-		//System.out.println(dto.getProduct_num());
+		if(rs.next()) { //객체 생성 해야하나? 할필요없다.
+			dto.setProduct_num(rs.getLong("PRODUCT_NUM"));
+			dto.setProduct_name(rs.getString("PRODUCT_NAME"));
+			dto.setProduct_detail(rs.getString("PRODUCT_DETAIL"));
+			dto.setProduct_score(rs.getDouble("PRODUCT_SCORE"));
+		}else {dto = null;}
+		
 		DBConnection.disConnection(connection, st);
+		
+//		System.out.println(dto.getProduct_num());
+//		System.out.println(dto.getProduct_name());
+		
 		return dto;
 	}
 
