@@ -6,12 +6,25 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.iu.s1.util.DBConnection;
 
 @Repository
 public class ProductDAO {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	private final String NAMESPACE="com.iu.s1.product.ProductDAO.";
+	
+	//delete
+	public int setProductDelete (Long productNum) throws Exception {
+		return sqlSession.delete(NAMESPACE+"setProductDelete", productNum);
+	}
 	
 	public Long getProductNum () throws Exception { //시퀀스 구하기 (찾을 상품)
 //		Connection connection = DBConnection.getConnection();
@@ -34,34 +47,9 @@ public class ProductDAO {
 	}
 	
 	public ProductDTO getProductDetail(ProductDTO dto) throws Exception {
-		Connection connection = DBConnection.getConnection();
-		String sql = "SELECT * FROM PRODUCT WHERE PRODUCT_NUM=?";
-		PreparedStatement st = connection.prepareStatement(sql);
-		st.setLong(1, dto.getProduct_num());
-		ResultSet rs = st.executeQuery();
 		
-//		if(rs.next()) {
-//			ProductDTO productDTO = new ProductDTO();
-//			productDTO.setProduct_num(rs.getLong("PRODUCT_NUM"));
-//			productDTO.setProduct_name(rs.getString("PRODUCT_NAME"));
-//			productDTO.setProduct_detail(rs.getString("PRODUCT_DETAIL"));
-//			productDTO.setProduct_score(rs.getDouble("PRODUCT_SCORE"));
-//			dto = productDTO;
-//		}else {dto = null;}
-
-		if(rs.next()) { //객체 생성 해야하나? 
-			dto.setProduct_num(rs.getLong("PRODUCT_NUM"));
-			dto.setProduct_name(rs.getString("PRODUCT_NAME"));
-			dto.setProduct_detail(rs.getString("PRODUCT_DETAIL"));
-			dto.setProduct_score(rs.getDouble("PRODUCT_SCORE"));
-		}else {dto = null;}
-		
-		DBConnection.disConnection(connection, st);
-		
-//		System.out.println(dto.getProduct_num());
-//		System.out.println(dto.getProduct_name());
-		
-		return dto;
+		return sqlSession.selectOne(NAMESPACE+"getProductDetail", dto);
+		//selectone --> product_num이 pk라서 하나만 나옴. 만약 두개나오면 에러
 	}
 
 	public List<ProductOptionDTO> getProductOptionList () throws Exception {
@@ -99,75 +87,16 @@ public class ProductDAO {
 	}
 	
 	public List<ProductDTO> getProductList () throws Exception {
-		ArrayList<ProductDTO> ar = new ArrayList<ProductDTO>();
-		Connection connection = DBConnection.getConnection();
-		String sql = "SELECT PRODUCT_NUM, PRODUCT_NAME, PRODUCT_SCORE "
-				+ "FROM PRODUCT ORDER BY PRODUCT_SCORE DESC";
-		PreparedStatement st = connection.prepareStatement(sql);
-		ResultSet rs = st.executeQuery();
-		
-		while (rs.next()) {
-			ProductDTO dto = new ProductDTO();
-			dto.setProduct_num(rs.getLong("PRODUCT_NUM"));
-			dto.setProduct_name(rs.getString("PRODUCT_NAME"));
-			dto.setProduct_score(rs.getDouble("PRODUCT_SCORE"));
-			ar.add(dto);
-		}
-		DBConnection.disConnection(connection, st, rs);
-		return ar;		
+		//ArrayList<ProductDTO> ar = new ArrayList<ProductDTO>();
+		//Connection connection = dataSource.getConnection();
+
+		return sqlSession.selectList(NAMESPACE+"getProductList");		
 	}
 	
 
 	public int setProduct (ProductDTO dto) throws Exception { //다른데서 seq만들어서 넣어줌 PUBLIC_SEQ.NEXTVAL 하지마
-		Connection connection = DBConnection.getConnection();
-		String sql = "INSERT INTO PRODUCT VALUES (?, ?, ?, 0.0)";
-		PreparedStatement ps = connection.prepareStatement(sql);
-		ps.setLong(1, dto.getProduct_num());
-		ps.setString(2, dto.getProduct_name());
-		ps.setString(3, dto.getProduct_detail());
-		//ps.setDouble(3, dto.getProduct_score());
-		
-		int result = ps.executeUpdate();
-		
-		DBConnection.disConnection(connection, ps);
-		
-		return result;
+
+		return sqlSession.update(NAMESPACE+"setProduct", dto);
 	}
-	
-//	public static void main(String[] args) {
-//		
-//		ProductDTO productDTO = new ProductDTO();
-//		ProductDAO productDAO = new ProductDAO();
-//		
-//
-//		try {
-//			
-//			
-//
-//			
-////조회					
-////			List<ProductDTO> ar = productDAO.getProductList();
-////			System.out.println(ar.size() != 0);
-////			productDTO = ar.get(0);
-////			System.out.println(productDTO.getProduct_name());
-////조회
-//
-////set 상품
-//			//productDTO.setProduct_num((long) 2);
-////			productDTO.setProduct_name("test1");
-////			productDTO.setProduct_detail("test1");
-////			productDTO.setProduct_score( (double) 1 );
-////			
-////			int result = productDAO.setProduct(productDTO);
-////			System.out.println(result !=0);
-////set 상품			
-//			
-//			
-//			
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 	
 }

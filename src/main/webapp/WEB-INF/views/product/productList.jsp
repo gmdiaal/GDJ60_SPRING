@@ -27,10 +27,10 @@
 		<thead><th>상품번</th> <th>상품명</th> </thead>
 
 		<tbody>
-			<c:forEach items="${list}" var="dto"> <!-- page영역에 담김 (page: 현재 jsp에서만 사용가능한 영역)-->
+			<c:forEach items="${list}" var="dto1"> <!-- page영역에 담김 (page: 현재 jsp에서만 사용가능한 영역)-->
 				<tr>
-				<td> <a href="./detail?product_num=${dto.product_num}"> ${dto.product_name } </a></td>
-				<td>${dto.product_num}</td>
+				<td> <a href="./detail?product_num=${dto1.product_num}"> ${dto1.product_name } </a></td>
+				<td>${dto1.product_num}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
