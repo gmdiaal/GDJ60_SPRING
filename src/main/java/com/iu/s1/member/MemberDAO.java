@@ -22,9 +22,11 @@ public class MemberDAO {
 	public List<MemberDTO> getMemberList () throws Exception {
 
 		return sqlSession.selectList(NAMESPACE+"getMemberList");
-		
-		
-		
+
+	}
+	
+	public int setMemberJoin (MemberDTO memberDTO) {
+		return sqlSession.insert(NAMESPACE+"setMemberJoin", memberDTO);
 	}
 	
 	

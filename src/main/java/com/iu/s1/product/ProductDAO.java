@@ -96,7 +96,7 @@ public class ProductDAO {
 
 	public int setProduct (ProductDTO dto) throws Exception { //다른데서 seq만들어서 넣어줌 PUBLIC_SEQ.NEXTVAL 하지마
 
-		return sqlSession.update(NAMESPACE+"setProduct", dto);
+		return sqlSession.insert(NAMESPACE+"setProduct", dto);
 	}
 	
 }

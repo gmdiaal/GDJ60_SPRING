@@ -11,6 +11,7 @@
 	<c:forEach items="${list}" var="memberDTO" >
 		<h3>memberDTO.id</h3>
 		<h3>memberDTO.name</h3>
+		<h4> <a href="./add"></a> </h4>
 	</c:forEach>
 </body>
 </html>

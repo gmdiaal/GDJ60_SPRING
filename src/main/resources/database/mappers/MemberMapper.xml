@@ -7,4 +7,7 @@
   	<select id="getMemberList" resultType="com.iu.s1.member.MemberDTO">
   		SELECT * FROM MEMBER
   	</select>
+  	<insert id="setMemberJoin" parameterType="com.iu.s1.member.MemberDTO">
+  		INSERT INTO MEMBER VALUES(#{id}, #{pw}, #{name}, #{address}, #{phone}, #{email})
+  	</insert>
   </mapper>
