@@ -7,6 +7,11 @@
   	<select id="getMemberList" resultType="com.iu.s1.member.MemberDTO">
   		SELECT * FROM MEMBER
   	</select>
+  	
+  	<select id="getMemberDetail" parameterType="com.iu.s1.member.MemberDTO" resultType="com.iu.s1.member.MemberDTO">
+  		SELECT * FROM MEMBER WHERE ID = #{id}
+  	</select>
+  	
   	<insert id="setMemberJoin" parameterType="com.iu.s1.member.MemberDTO">
   		INSERT INTO MEMBER VALUES(#{id}, #{pw}, #{name}, #{address}, #{phone}, #{email})
   	</insert>

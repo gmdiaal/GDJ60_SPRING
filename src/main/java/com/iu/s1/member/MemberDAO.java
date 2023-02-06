@@ -19,6 +19,10 @@ public class MemberDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.iu.s1.member.MemberDAO";
 
+	public MemberDTO getMemberDetail (MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getMemberDetail", memberDTO);
+	}
+	
 	public List<MemberDTO> getMemberList () throws Exception {
 
 		return sqlSession.selectList(NAMESPACE+"getMemberList");

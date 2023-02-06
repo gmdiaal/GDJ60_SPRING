@@ -14,6 +14,14 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@RequestMapping(value = "detail")
+	public ModelAndView getMemberDetail(MemberDTO memberDTO, ModelAndView mv) {
+		
+		mv.addObject("detail", memberService.getMemberDetail(memberDTO));
+		mv.setViewName("/member/memberDetail");
+		return mv;
+	}
+	
 	@RequestMapping(value = "list")
 	public ModelAndView getMemberList(ModelAndView mv) throws Exception {
 		List<MemberDTO> ar = memberService.getMemberList();
