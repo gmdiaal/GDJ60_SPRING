@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -26,13 +27,15 @@ public class MemberController {
 	public ModelAndView getMemberList(ModelAndView mv) throws Exception {
 		List<MemberDTO> ar = memberService.getMemberList();
 		mv.addObject("list", ar);
+		mv.setViewName("/member/memberList");
 		return mv;
 	}
 	
-	public ModelAndView setMemberJoin( ModelAndView mv, MemberDTO memberDTO ) {
+	@RequestMapping(value = "join", method = RequestMethod.POST)
+	public String setMemberJoin( MemberDTO memberDTO ) {
 		memberService.setMemberJoin(memberDTO);
-		mv.addObject("dto", memberDTO);
-		return mv;
+
+		return "redirect:./list";
 	}
 	
 }
