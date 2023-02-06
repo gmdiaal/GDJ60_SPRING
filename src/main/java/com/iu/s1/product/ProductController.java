@@ -20,7 +20,7 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	@RequestMapping (value = "list")
+	@RequestMapping (value = "list1")
 	public ModelAndView getProductList(ModelAndView mv) throws Exception {
 		System.out.println("Product List");
 		
@@ -32,7 +32,7 @@ public class ProductController {
 		
 		System.out.println(ar.size()>0);
 		
-		mv.setViewName("product/productList");
+		mv.setViewName("./product/productList");
 		mv.addObject("list", ar);
 		//return "/product/productList";
 		return mv;
