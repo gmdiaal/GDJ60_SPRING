@@ -16,8 +16,8 @@
 	<% List<ProductDTO> ar = (List<ProductDTO>)request.getAttribute("list"); 
 	for (ProductDTO productDTO : ar){
 	%>
-	<h3><%=productDTO.getProduct_num() %></h3>
-	<h3><%=productDTO.getProduct_name() %></h3>
+	<h3><%=productDTO.getProductNum() %></h3>
+	<h3><%=productDTO.getProductName() %></h3>
 
 	<%} %>
 	<hr>

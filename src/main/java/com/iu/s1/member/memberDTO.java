@@ -1,10 +1,11 @@
 package com.iu.s1.member;
 
-public class memberDTO {
+public class MemberDTO {
 
 	private String id;
 	private String pw;
 	private String name;
+	private String address;
 	private String phone;
 	private String email;
 	
@@ -26,6 +27,12 @@ public class memberDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public String getPhone() {
 		return phone;
 	}
@@ -38,8 +45,5 @@ public class memberDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
-	
 	
 }

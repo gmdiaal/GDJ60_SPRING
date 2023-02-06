@@ -5,16 +5,16 @@
 
   <mapper namespace="com.iu.s1.product.ProductDAO">
   	<select id="getProductList" resultType="ProductDTO" statementType="PREPARED">
-  		SELECT PRODUCT_NUM, PRODUCT_NAME, PRODUCT_SCORE
+  		SELECT PRODUCTNUM, PRODUCTNAME, PRODUCTSCORE
   		FROM PRODUCT
   		ORDER BY PRODUCT_NUM DESC
   	</select>
   	<select id="getProductDetail" parameterType="ProductDTO" resultType="ProductDTO">
-  		SELECT * FROM PRODUCT WHERE PRODUCT_NUM=#{product_num}
+  		SELECT * FROM PRODUCT WHERE PRODUCTNUM=#{productNum}
   	</select>
 
 	<insert id="setProduct" parameterType="com.iu.s1.product.ProductDTO">
-		INSERT INTO PRODUCT VALUES (#{product_num}, #{product_name}, #{product_detail}, 0.0)
+		INSERT INTO PRODUCT VALUES (#{productNum}, #{productName}, #{productDetail}, 0.0)
 	</insert>
 	
 	<delete id="setProductDelete" parameterType="java.lang.Long">

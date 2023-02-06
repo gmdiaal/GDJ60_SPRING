@@ -36,7 +36,7 @@ public class ProductDAO {
 //		DBConnection.disConnection(connection, st, rs);
 //		return result;
 		Connection con = DBConnection.getConnection();
-		String sql = "SELECT PUBLIC_SEQ.NEXTVAL FROM DUAL";
+		String sql = "SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL";
 		PreparedStatement st = con.prepareStatement(sql);
 		ResultSet rs = st.executeQuery();
 		rs.next();
@@ -46,9 +46,9 @@ public class ProductDAO {
 		return num;
 	}
 	
-	public ProductDTO getProductDetail(ProductDTO dto) throws Exception {
+	public ProductDTO getProductDetail(ProductDTO productDTO) throws Exception {
 		
-		return sqlSession.selectOne(NAMESPACE+"getProductDetail", dto);
+		return sqlSession.selectOne(NAMESPACE+"getProductDetail", productDTO);
 		//selectone --> product_num이 pk라서 하나만 나옴. 만약 두개나오면 에러
 	}
 
