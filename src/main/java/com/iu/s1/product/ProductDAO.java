@@ -27,23 +27,7 @@ public class ProductDAO {
 	}
 	
 	public Long getProductNum () throws Exception { //시퀀스 구하기 (찾을 상품)
-//		Connection connection = DBConnection.getConnection();
-//		String sql = "SELECT PUBLIC_SEQ.NEXTVAL FROM DUAL";
-//		PreparedStatement st = connection.prepareStatement(sql);
-//		ResultSet rs = st.executeQuery();
-//		Long result = rs.getLong("MAX(PRODUCT_NUM)"); //1
-//		
-//		DBConnection.disConnection(connection, st, rs);
-//		return result;
-		Connection con = DBConnection.getConnection();
-		String sql = "SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL";
-		PreparedStatement st = con.prepareStatement(sql);
-		ResultSet rs = st.executeQuery();
-		rs.next();
-		Long num = rs.getLong(1);
-		
-		DBConnection.disConnection(con, st, rs);
-		return num;
+		return sqlSession.selectOne(NAMESPACE+"getProductNum");
 	}
 	
 	public ProductDTO getProductDetail(ProductDTO productDTO) throws Exception {
@@ -94,9 +78,9 @@ public class ProductDAO {
 	}
 	
 
-	public int setProduct (ProductDTO dto) throws Exception { //다른데서 seq만들어서 넣어줌 PUBLIC_SEQ.NEXTVAL 하지마
+	public int setProductAdd (ProductDTO dto) throws Exception { //다른데서 seq만들어서 넣어줌 PUBLIC_SEQ.NEXTVAL 하지마
 
-		return sqlSession.insert(NAMESPACE+"setProduct", dto);
+		return sqlSession.insert(NAMESPACE+"setProductAdd", dto);
 	}
 	
 }

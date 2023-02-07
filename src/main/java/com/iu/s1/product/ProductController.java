@@ -61,13 +61,13 @@ public class ProductController {
 	}
 	
 	@RequestMapping (value = "productAdd", method = RequestMethod.GET) //url경로와 jsp 경로가 일치할 시 void로 해도 댐.
-	public void productAdd (  ) {
+	public void setProductAdd (  ) {
 		
 	}
 	
 	@RequestMapping (value = "productAdd", method = RequestMethod.POST)
-	public String productAdd(ProductDTO dto) throws Exception {
-		int result = productService.setAddProduct(dto, null);
+	public String setProductAdd(ProductDTO dto) throws Exception {
+		int result = productService.setProductAdd(dto, null);
 		System.out.println(result==1);
 		return "redirect:./list";
 	}

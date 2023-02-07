@@ -18,10 +18,10 @@ public class ProductService {
 		return productDAO.getProductDetail(productDTO);
 	}
 	
-	public int setAddProduct (ProductDTO productDTO, List<ProductOptionDTO> ar) throws Exception {	
+	public int setProductAdd (ProductDTO productDTO, List<ProductOptionDTO> ar) throws Exception {	
 		Long productNum = productDAO.getProductNum(); //시퀀스 생성해서 숫자변수에 담음.
 		productDTO.setProductNum(productNum); //외부의 DTO(번호 외 다른 정보 max) 받아와서 DTO에 숫자 담음
-		int result = productDAO.setProduct(productDTO); //DTO 받아서 DATABASE에 보냄
+		int result = productDAO.setProductAdd(productDTO); //DTO 받아서 DATABASE에 보냄
 		
 		if(ar != null) {
 		
